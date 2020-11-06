@@ -77,3 +77,11 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+globalEnvironment:
+  hello1: hello1g
+  hello2: hello
+
+environment:
+  hello3: hello
+  hello1: hello1e

@@ -36,6 +36,7 @@ Common labels
 {{- define "hello.labels" -}}
 helm.sh/chart: {{ include "hello.chart" . }}
 {{ include "hello.selectorLabels" . }}
+{{ include "hello.combinedLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -48,6 +49,12 @@ Selector labels
 {{- define "hello.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "hello.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{- define "hello.combinedLabels" -}}
+{{ with merge .Values.environment .Values.globalEnvironment }}
+{{- toYaml . }}
+{{- end }}
 {{- end }}
 
 {{/*
